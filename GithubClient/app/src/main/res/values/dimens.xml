@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- font sizes -->
+    <dimen name="text_large">22sp</dimen>
+
+    <!-- margins -->
+    <dimen name="margin_normal">16sp</dimen>
+    <dimen name="margin_small">12sp</dimen>
+    <dimen name="margin_smallest">4sp</dimen>
+</resources>

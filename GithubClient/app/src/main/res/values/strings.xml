@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">GithubClient</string>
+
+    <!-- errors -->
+    <string name="ERR_NETWORK">A problem with network connectivity has been observed…</string>
+    <string name="ERR_UNKNOWN">Oops something went wrong…</string>
+    <string name="ERR_NOT_FOUND">User was not found</string>
+
+    <!-- messages -->
+    <string name="MSG_INVALID_USERNAME">Invalid username</string>
+
+    <!-- activity titles -->
+    <string name="main_activity_title">Github Client</string>
+    <string name="repositories_list_activity_title">Repositories</string>
+    <string name="repository_details_activity_title">Repository Details</string>
+
+    <!-- main_activity -->
+    <string name="main_tv_header">Search users repositories</string>
+    <string name="main_et_username">Username</string>
+    <string name="main_btn_search">search</string>
+    <string name="main_iv_github_mark">github mark</string>
+
+    <!-- repository_details_activity -->
+    <string name="repository_details_tv_crated">Created at</string>
+    <string name="repository_details_tv_updated">Updated at</string>
+    <string name="repository_details_tv_pushed">Pushed at</string>
+
+    <!-- item_repository -->
+    <string name="repository_iv_stars_descr">stars</string>
+
+</resources>
