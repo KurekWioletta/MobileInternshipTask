@@ -1,4 +1,4 @@
-package com.kurekwioletta.githubclient.utils.ui.repositories_details;
+package com.kurekwioletta.githubclient.utils.ui.repository_details;
 
 import com.kurekwioletta.githubclient.data.GithubApiManager;
 import com.kurekwioletta.githubclient.data.model.Repository;
