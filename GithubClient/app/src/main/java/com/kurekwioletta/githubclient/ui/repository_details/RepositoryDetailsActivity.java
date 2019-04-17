@@ -18,6 +18,8 @@ import butterknife.ButterKnife;
 
 public class RepositoryDetailsActivity extends BaseActivity implements RepositoryDetailsContract.View {
 
+    private static final String EXTRA_REPOSITORY = "com.kurekwioletta.githubclient.EXTRA_REPOSITORY";
+
     @Inject
     RepositoryDetailsPresenter<RepositoryDetailsContract.View> mPresenter;
 
@@ -57,7 +59,7 @@ public class RepositoryDetailsActivity extends BaseActivity implements Repositor
         setUnBinder(ButterKnife.bind(this));
 
         mPresenter.onAttach(this);
-        mPresenter.onViewInitialized(getIntent().getParcelableExtra(AppConstants.EXTRA_REPOSITORY));
+        mPresenter.onViewInitialized(getIntent().getParcelableExtra(EXTRA_REPOSITORY));
     }
 
     @Override
@@ -86,7 +88,7 @@ public class RepositoryDetailsActivity extends BaseActivity implements Repositor
 
     public static Intent getStartIntent(Context context, Repository repository) {
         Intent intent = new Intent(context, RepositoryDetailsActivity.class);
-        intent.putExtra(AppConstants.EXTRA_REPOSITORY,repository);
+        intent.putExtra(EXTRA_REPOSITORY,repository);
         return intent;
     }
 }

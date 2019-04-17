@@ -2,8 +2,6 @@ package com.kurekwioletta.githubclient.utils.ui.main;
 
 import android.app.Application;
 import android.content.Intent;
-import android.widget.Button;
-import android.widget.EditText;
 
 import com.kurekwioletta.githubclient.R;
 import com.kurekwioletta.githubclient.ui.main.MainActivity;
@@ -28,23 +26,23 @@ public class MainActivityTest {
 
     private static final String VALID_USERNAME = "KurekWioletta";
 
-    private MainActivity mActivity;
-
     private ActivityController<MainActivity> mMainActivityController;
+
+    private MainActivity mMainActivity;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
         mMainActivityController = Robolectric.buildActivity(MainActivity.class).create().start().resume().visible();
-        mActivity = mMainActivityController.get();
+        mMainActivity = mMainActivityController.get();
     }
 
     @Test
     public void when_givenInvalidUsernameOrNetworkError_repositoryListActivityNotOpened() {
-        assertNotNull(mActivity);
+        assertNotNull(mMainActivity);
 
-        mActivity.findViewById(R.id.btn_main_load_repositories).performClick();
+        mMainActivity.findViewById(R.id.btn_main_load_repositories).performClick();
 
         Intent startedIntent = shadowOf((Application) getApplicationContext()).getNextStartedActivity();
 
@@ -53,11 +51,11 @@ public class MainActivityTest {
 
     @Test
     public void when_givenValidUsername_openRepositoryListActivity() {
-        assertNotNull(mActivity);
+        assertNotNull(mMainActivity);
 
-        mActivity.openRepositoriesListActivity(VALID_USERNAME);
+        mMainActivity.openRepositoriesListActivity(VALID_USERNAME);
 
-        Intent expectedIntent = new Intent(mActivity, RepositoriesListActivity.class);
+        Intent expectedIntent = new Intent(mMainActivity, RepositoriesListActivity.class);
         Intent startedIntent = shadowOf((Application) getApplicationContext()).getNextStartedActivity();
 
         assertNotNull(startedIntent);

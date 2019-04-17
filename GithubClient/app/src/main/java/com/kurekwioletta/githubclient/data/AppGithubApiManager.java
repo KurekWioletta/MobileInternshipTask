@@ -17,6 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AppGithubApiManager implements GithubApiManager {
 
+    private static final String API_ENDPOINT = "https://api.github.com/";
+
     private final GithubApiManager mGithubApiHelper;
     private final SchedulerProvider mSchedulerProvider;
 
@@ -24,7 +26,7 @@ public class AppGithubApiManager implements GithubApiManager {
     public AppGithubApiManager(OkHttpClient okHttpClient, SchedulerProvider schedulerProvider) {
         Retrofit retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl(AppConstants.API_ENDPOINT)
+                .baseUrl(API_ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();

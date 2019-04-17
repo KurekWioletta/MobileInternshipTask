@@ -26,9 +26,9 @@ public class RepositoryDetailsActivityTest {
 
     private Repository mRepository;
 
-    private RepositoryDetailsActivity mRepositoryDetailsActivity;
-
     private ActivityController<RepositoryDetailsActivity> mRepositoryDetailsActivityController;
+
+    private RepositoryDetailsActivity mRepositoryDetailsActivity;
 
     @Before
     public void setUp() {

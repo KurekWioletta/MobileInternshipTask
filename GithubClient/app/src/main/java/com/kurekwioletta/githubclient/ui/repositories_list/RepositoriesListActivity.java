@@ -24,6 +24,8 @@ import butterknife.ButterKnife;
 
 public class RepositoriesListActivity extends BaseActivity implements RepositoriesListContract.View {
 
+    private static final String EXTRA_USERNAME = "com.kurekwioletta.githubclient.EXTRA_USERNAME";
+
     @Inject
     RepositoriesListPresenter<RepositoriesListContract.View> mPresenter;
 
@@ -49,7 +51,7 @@ public class RepositoriesListActivity extends BaseActivity implements Repositori
 
         mPresenter.onAttach(this);
         setUpRepositoriesListRecyclerView();
-        mPresenter.onViewInitialized(getIntent().getStringExtra(AppConstants.EXTRA_USERNAME));
+        mPresenter.onViewInitialized(getIntent().getStringExtra(EXTRA_USERNAME));
     }
 
     @Override
@@ -79,7 +81,7 @@ public class RepositoriesListActivity extends BaseActivity implements Repositori
 
     public static Intent getStartIntent(Context context, String username) {
         Intent intent = new Intent(context, RepositoriesListActivity.class);
-        intent.putExtra(AppConstants.EXTRA_USERNAME, username);
+        intent.putExtra(EXTRA_USERNAME, username);
         return intent;
     }
 
