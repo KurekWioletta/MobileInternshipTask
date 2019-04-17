@@ -24,6 +24,8 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(RobolectricTestRunner.class)
 public class RepositoryDetailsActivityTest {
 
+    private static final String EXTRA_REPOSITORY = "com.kurekwioletta.githubclient.EXTRA_REPOSITORY";
+
     private Repository mRepository;
 
     private ActivityController<RepositoryDetailsActivity> mRepositoryDetailsActivityController;
@@ -90,7 +92,7 @@ public class RepositoryDetailsActivityTest {
         mRepository.setHtmlUrl("c");
 
         Intent intent = new Intent(ApplicationProvider.getApplicationContext(), RepositoryDetailsActivity.class);
-        intent.putExtra(AppConstants.EXTRA_REPOSITORY, mRepository);
+        intent.putExtra(EXTRA_REPOSITORY, mRepository);
 
         return intent;
     }
