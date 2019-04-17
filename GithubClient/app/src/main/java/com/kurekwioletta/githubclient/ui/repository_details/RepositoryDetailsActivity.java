@@ -79,12 +79,6 @@ public class RepositoryDetailsActivity extends BaseActivity implements Repositor
     }
 
     @Override
-    protected void onStop() {
-        mPresenter.onDetach();
-        super.onStop();
-    }
-
-    @Override
     protected void onDestroy() {
         mPresenter.onDetach();
         super.onDestroy();

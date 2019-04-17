@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     }
 
     @OnClick(R.id.btn_main_load_repositories)
-    void onLoadRepositoriesClick(View v) {
+    public void onLoadRepositoriesClick(View v) {
         mPresenter.onLoadRepositoriesClick(etUsername.getText().toString());
     }
 }

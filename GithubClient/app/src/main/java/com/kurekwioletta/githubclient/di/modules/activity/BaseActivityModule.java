@@ -1,5 +1,6 @@
 package com.kurekwioletta.githubclient.di.modules.activity;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 
 import com.kurekwioletta.githubclient.di.PerActivity;

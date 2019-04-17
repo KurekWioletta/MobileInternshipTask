@@ -5,6 +5,7 @@ import com.kurekwioletta.githubclient.data.model.Repository;
 import com.kurekwioletta.githubclient.ui.repository_details.RepositoryDetailsContract;
 import com.kurekwioletta.githubclient.ui.repository_details.RepositoryDetailsPresenter;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -20,29 +21,36 @@ public class RepositoryDetailsPresenterTest {
     private RepositoryDetailsPresenter<RepositoryDetailsContract.View> mRepositoryDetailsPresenter;
 
     @Mock
-    RepositoryDetailsContract.View mMockRepositoryDetailsView;
+    RepositoryDetailsContract.View mMockedRepositoryDetailsView;
 
     @Mock
-    GithubApiManager mMockGithubApiManager;
+    CompositeDisposable mMockedCompositeDisposable;
+
+    @Mock
+    GithubApiManager mMockedGithubApiManager;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        CompositeDisposable compositeDisposable = new CompositeDisposable();
         mRepositoryDetailsPresenter = new RepositoryDetailsPresenter<>(
-                mMockGithubApiManager,
-                compositeDisposable);
+                mMockedGithubApiManager,
+                mMockedCompositeDisposable);
 
-        mRepositoryDetailsPresenter.onAttach(mMockRepositoryDetailsView);
+        mRepositoryDetailsPresenter.onAttach(mMockedRepositoryDetailsView);
     }
 
     @Test
     public void when_viewInitialized_setUpRepositoryDetails() {
-        Repository mockRepository = mock(Repository.class);
+        Repository mockedRepository = mock(Repository.class);
 
-        mRepositoryDetailsPresenter.onViewInitialized(mockRepository);
+        mRepositoryDetailsPresenter.onViewInitialized(mockedRepository);
 
-        verify(mMockRepositoryDetailsView).setUpRepositoryDetails(mockRepository);
+        verify(mMockedRepositoryDetailsView).setUpRepositoryDetails(mockedRepository);
+    }
+
+    @After
+    public void tearDown() {
+        mRepositoryDetailsPresenter.onDetach();
     }
 }

@@ -7,7 +7,8 @@ import com.kurekwioletta.githubclient.di.components.DaggerAppComponent;
 import com.kurekwioletta.githubclient.di.modules.AppModule;
 
 public class GithubClientApp extends Application {
-    protected AppComponent mAppComponent;
+
+    private AppComponent mAppComponent;
 
     @Override
     public void onCreate() {

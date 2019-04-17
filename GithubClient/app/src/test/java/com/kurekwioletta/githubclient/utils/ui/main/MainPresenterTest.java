@@ -6,7 +6,6 @@ import com.kurekwioletta.githubclient.ui.main.MainContract;
 import com.kurekwioletta.githubclient.ui.main.MainPresenter;
 import com.kurekwioletta.githubclient.utils.AppConstants;
 import com.kurekwioletta.githubclient.utils.ui.main.response.User;
-import com.kurekwioletta.githubclient.utils.utils.TestConstans;
 
 import org.junit.After;
 import org.junit.Before;
@@ -26,24 +25,30 @@ import static org.mockito.Mockito.when;
 
 public class MainPresenterTest {
 
+    private static final String VALID_USERNAME = "KurekWioletta";
+    private static final String INVALID_USERNAME = "/a";
+    private static final int STATUS_CODE_UNKNOWN = 520;
+
     private MainPresenter<MainContract.View> mMainPresenter;
 
     @Mock
-    MainContract.View mMockMainView;
+    MainContract.View mMockedMainView;
 
     @Mock
-    GithubApiManager mMockGithubApiManager;
+    CompositeDisposable mMockedCompositeDisposable;
+
+    @Mock
+    GithubApiManager mMockedGithubApiManager;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        CompositeDisposable compositeDisposable = new CompositeDisposable();
         mMainPresenter = new MainPresenter<>(
-                mMockGithubApiManager,
-                compositeDisposable);
+                mMockedGithubApiManager,
+                mMockedCompositeDisposable);
 
-        mMainPresenter.onAttach(mMockMainView);
+        mMainPresenter.onAttach(mMockedMainView);
     }
 
     @Test
@@ -53,14 +58,14 @@ public class MainPresenterTest {
                 new User());
 
         doReturn(Observable.just(response))
-                .when(mMockGithubApiManager)
-                .getUserResponse(TestConstans.VALID_USERNAME);
+                .when(mMockedGithubApiManager)
+                .getUserResponse(VALID_USERNAME);
 
-        mMainPresenter.onLoadRepositoriesClick(TestConstans.VALID_USERNAME);
+        mMainPresenter.onLoadRepositoriesClick(VALID_USERNAME);
 
-        verify(mMockMainView).showLoading();
-        verify(mMockMainView).hideLoading();
-        verify(mMockMainView).openRepositoriesListActivity(TestConstans.VALID_USERNAME);
+        verify(mMockedMainView).showLoading();
+        verify(mMockedMainView).hideLoading();
+        verify(mMockedMainView).openRepositoriesListActivity(VALID_USERNAME);
     }
 
     @Test
@@ -72,56 +77,56 @@ public class MainPresenterTest {
                 ));
 
         doReturn(Observable.just(response))
-                .when(mMockGithubApiManager)
-                .getUserResponse(TestConstans.VALID_USERNAME);
+                .when(mMockedGithubApiManager)
+                .getUserResponse(VALID_USERNAME);
 
-        mMainPresenter.onLoadRepositoriesClick(TestConstans.VALID_USERNAME);
+        mMainPresenter.onLoadRepositoriesClick(VALID_USERNAME);
 
-        verify(mMockMainView).showLoading();
-        verify(mMockMainView).hideLoading();
-        verify(mMockMainView).showMessage(R.string.ERR_NOT_FOUND);
+        verify(mMockedMainView).showLoading();
+        verify(mMockedMainView).hideLoading();
+        verify(mMockedMainView).showMessage(R.string.ERR_NOT_FOUND);
     }
 
     @Test
     public void when_unknownError_showMessage() {
         Response<User> response = Response.error(
-                TestConstans.STATUS_CODE_UNKNOWN,
+                STATUS_CODE_UNKNOWN,
                 ResponseBody.create(
                         MediaType.parse("application/json"),""
                 ));
 
         doReturn(Observable.just(response))
-                .when(mMockGithubApiManager)
-                .getUserResponse(TestConstans.VALID_USERNAME);
+                .when(mMockedGithubApiManager)
+                .getUserResponse(VALID_USERNAME);
 
-        mMainPresenter.onLoadRepositoriesClick(TestConstans.VALID_USERNAME);
+        mMainPresenter.onLoadRepositoriesClick(VALID_USERNAME);
 
-        verify(mMockMainView).showLoading();
-        verify(mMockMainView).hideLoading();
-        verify(mMockMainView).showMessage(R.string.ERR_UNKNOWN);
+        verify(mMockedMainView).showLoading();
+        verify(mMockedMainView).hideLoading();
+        verify(mMockedMainView).showMessage(R.string.ERR_UNKNOWN);
     }
 
     @Test
     public void when_networkError_showMessage() {
-        when(mMockGithubApiManager.getUserResponse(TestConstans.VALID_USERNAME))
+        when(mMockedGithubApiManager.getUserResponse(VALID_USERNAME))
                 .thenReturn(Observable.error(new RuntimeException()));
 
-        mMainPresenter.onLoadRepositoriesClick(TestConstans.VALID_USERNAME);
+        mMainPresenter.onLoadRepositoriesClick(VALID_USERNAME);
 
-        verify(mMockMainView).showLoading();
-        verify(mMockMainView).hideLoading();
-        verify(mMockMainView).showMessage(R.string.ERR_NETWORK);
+        verify(mMockedMainView).showLoading();
+        verify(mMockedMainView).hideLoading();
+        verify(mMockedMainView).showMessage(R.string.ERR_NETWORK);
     }
 
     @Test
     public void when_usernameIsInvalid_showMessage() {
-        mMainPresenter.onLoadRepositoriesClick(TestConstans.INVALID_USERNAME);
+        mMainPresenter.onLoadRepositoriesClick(INVALID_USERNAME);
 
-        verify(mMockMainView).showMessage(R.string.MSG_INVALID_USERNAME);
+        verify(mMockedMainView).showMessage(R.string.MSG_INVALID_USERNAME);
     }
 
     @After
-    public void close() {
+    public void tearDown() {
         mMainPresenter.onDetach();
     }
 }
