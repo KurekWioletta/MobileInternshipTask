@@ -6,6 +6,7 @@ import com.kurekwioletta.githubclient.ui.main.MainContract;
 import com.kurekwioletta.githubclient.ui.main.MainPresenter;
 import com.kurekwioletta.githubclient.utils.AppConstants;
 import com.kurekwioletta.githubclient.utils.ui.main.response.User;
+import com.kurekwioletta.githubclient.utils.utils.TestConstants;
 
 import org.junit.After;
 import org.junit.Before;
@@ -25,8 +26,6 @@ import static org.mockito.Mockito.when;
 
 public class MainPresenterTest {
 
-    private static final String VALID_USERNAME = "KurekWioletta";
-    private static final String INVALID_USERNAME = "/a";
     private static final int STATUS_CODE_UNKNOWN = 520;
 
     private MainPresenter<MainContract.View> mMainPresenter;
@@ -59,13 +58,20 @@ public class MainPresenterTest {
 
         doReturn(Observable.just(response))
                 .when(mMockedGithubApiManager)
-                .getUserResponse(VALID_USERNAME);
+                .getUserResponse(TestConstants.VALID_USERNAME);
 
-        mMainPresenter.onLoadRepositoriesClick(VALID_USERNAME);
+        mMainPresenter.onLoadRepositoriesClick(TestConstants.VALID_USERNAME);
 
         verify(mMockedMainView).showLoading();
         verify(mMockedMainView).hideLoading();
-        verify(mMockedMainView).openRepositoriesListActivity(VALID_USERNAME);
+        verify(mMockedMainView).openRepositoriesListActivity(TestConstants.VALID_USERNAME);
+    }
+
+    @Test
+    public void when_usernameIsInvalid_showMessage() {
+        mMainPresenter.onLoadRepositoriesClick(TestConstants.INVALID_USERNAME);
+
+        verify(mMockedMainView).showMessage(R.string.MSG_INVALID_USERNAME);
     }
 
     @Test
@@ -78,9 +84,9 @@ public class MainPresenterTest {
 
         doReturn(Observable.just(response))
                 .when(mMockedGithubApiManager)
-                .getUserResponse(VALID_USERNAME);
+                .getUserResponse(TestConstants.VALID_USERNAME);
 
-        mMainPresenter.onLoadRepositoriesClick(VALID_USERNAME);
+        mMainPresenter.onLoadRepositoriesClick(TestConstants.VALID_USERNAME);
 
         verify(mMockedMainView).showLoading();
         verify(mMockedMainView).hideLoading();
@@ -97,9 +103,9 @@ public class MainPresenterTest {
 
         doReturn(Observable.just(response))
                 .when(mMockedGithubApiManager)
-                .getUserResponse(VALID_USERNAME);
+                .getUserResponse(TestConstants.VALID_USERNAME);
 
-        mMainPresenter.onLoadRepositoriesClick(VALID_USERNAME);
+        mMainPresenter.onLoadRepositoriesClick(TestConstants.VALID_USERNAME);
 
         verify(mMockedMainView).showLoading();
         verify(mMockedMainView).hideLoading();
@@ -108,21 +114,14 @@ public class MainPresenterTest {
 
     @Test
     public void when_networkError_showMessage() {
-        when(mMockedGithubApiManager.getUserResponse(VALID_USERNAME))
+        when(mMockedGithubApiManager.getUserResponse(TestConstants.VALID_USERNAME))
                 .thenReturn(Observable.error(new RuntimeException()));
 
-        mMainPresenter.onLoadRepositoriesClick(VALID_USERNAME);
+        mMainPresenter.onLoadRepositoriesClick(TestConstants.VALID_USERNAME);
 
         verify(mMockedMainView).showLoading();
         verify(mMockedMainView).hideLoading();
         verify(mMockedMainView).showMessage(R.string.ERR_NETWORK);
-    }
-
-    @Test
-    public void when_usernameIsInvalid_showMessage() {
-        mMainPresenter.onLoadRepositoriesClick(INVALID_USERNAME);
-
-        verify(mMockedMainView).showMessage(R.string.MSG_INVALID_USERNAME);
     }
 
     @After

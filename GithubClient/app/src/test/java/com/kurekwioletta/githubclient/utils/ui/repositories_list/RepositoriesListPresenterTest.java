@@ -5,6 +5,7 @@ import com.kurekwioletta.githubclient.data.GithubApiManager;
 import com.kurekwioletta.githubclient.data.model.Repository;
 import com.kurekwioletta.githubclient.ui.repositories_list.RepositoriesListContract;
 import com.kurekwioletta.githubclient.ui.repositories_list.RepositoriesListPresenter;
+import com.kurekwioletta.githubclient.utils.utils.TestConstants;
 
 import org.junit.After;
 import org.junit.Before;
@@ -23,8 +24,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class RepositoriesListPresenterTest {
-
-    private static final String VALID_USERNAME = "KurekWioletta";
 
     private RepositoriesListPresenter<RepositoriesListContract.View> mRepositoriesListPresenter;
 
@@ -54,9 +53,9 @@ public class RepositoriesListPresenterTest {
 
         doReturn(Observable.just(repositoryList))
                 .when(mMockedGithubApiManager)
-                .getUsersRepositoriesList(VALID_USERNAME);
+                .getUsersRepositoriesList(TestConstants.VALID_USERNAME);
 
-        mRepositoriesListPresenter.onViewInitialized(VALID_USERNAME);
+        mRepositoriesListPresenter.onViewInitialized(TestConstants.VALID_USERNAME);
 
         verify(mMockedRepositoriesListView).showLoading();
         verify(mMockedRepositoriesListView).hideLoading();
@@ -69,10 +68,10 @@ public class RepositoriesListPresenterTest {
      */
     @Test
     public void when_failedToLoadRepositories_showMessage() {
-        when(mMockedGithubApiManager.getUsersRepositoriesList(VALID_USERNAME))
+        when(mMockedGithubApiManager.getUsersRepositoriesList(TestConstants.VALID_USERNAME))
                 .thenReturn(Observable.error(new RuntimeException()));
 
-        mRepositoriesListPresenter.onViewInitialized(VALID_USERNAME);
+        mRepositoriesListPresenter.onViewInitialized(TestConstants.VALID_USERNAME);
 
         verify(mMockedRepositoriesListView).showLoading();
         verify(mMockedRepositoriesListView).hideLoading();
