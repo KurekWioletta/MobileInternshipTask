@@ -18,6 +18,7 @@ import java.util.List;
 public class RepositoriesListAdapter extends RecyclerView.Adapter {
 
     private final List<Repository> mRepositoriesList = new ArrayList<>();
+
     private Context mContext;
 
     public RepositoriesListAdapter(Context context) {
