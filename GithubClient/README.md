@@ -4,7 +4,7 @@ This repository contains my Github client app which connects to public Github RE
 ![](https://i.imgur.com/dV87vv7.png)
 
 #### Contained app packages:
-  - **data:** data models and GithubApiManager
+  - **data:** data models and Github API manager
   - **di:** provided dependencies
   - **ui:** view and presenter classes with contract interfaces
   - **utils:** utility-helper classes
