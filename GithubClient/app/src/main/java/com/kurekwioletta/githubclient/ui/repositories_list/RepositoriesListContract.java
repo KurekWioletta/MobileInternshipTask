@@ -1,7 +1,7 @@
 package com.kurekwioletta.githubclient.ui.repositories_list;
 
 import com.kurekwioletta.githubclient.data.model.Repository;
-import com.kurekwioletta.githubclient.di.PerActivity;
+import com.kurekwioletta.githubclient.di.ActivityScope;
 import com.kurekwioletta.githubclient.ui.base.MvpPresenter;
 import com.kurekwioletta.githubclient.ui.base.MvpView;
 
@@ -16,7 +16,7 @@ public interface RepositoriesListContract {
         void hideLoading();
     }
 
-    @PerActivity
+    @ActivityScope
     interface Presenter<V extends RepositoriesListContract.View> extends MvpPresenter<V> {
         void onViewInitialized(String username);
     }

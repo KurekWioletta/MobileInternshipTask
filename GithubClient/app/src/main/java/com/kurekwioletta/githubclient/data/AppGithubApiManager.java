@@ -1,7 +1,6 @@
 package com.kurekwioletta.githubclient.data;
 
 import com.kurekwioletta.githubclient.data.model.Repository;
-import com.kurekwioletta.githubclient.utils.AppConstants;
 import com.kurekwioletta.githubclient.utils.rx.SchedulerProvider;
 
 import java.util.List;

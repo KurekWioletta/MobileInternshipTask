@@ -6,7 +6,6 @@ import android.widget.TextView;
 import com.kurekwioletta.githubclient.R;
 import com.kurekwioletta.githubclient.data.model.Repository;
 import com.kurekwioletta.githubclient.ui.repository_details.RepositoryDetailsActivity;
-import com.kurekwioletta.githubclient.utils.AppConstants;
 
 import org.junit.After;
 import org.junit.Before;

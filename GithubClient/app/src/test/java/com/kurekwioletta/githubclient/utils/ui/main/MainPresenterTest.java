@@ -5,6 +5,7 @@ import com.kurekwioletta.githubclient.data.GithubApiManager;
 import com.kurekwioletta.githubclient.ui.main.MainContract;
 import com.kurekwioletta.githubclient.ui.main.MainPresenter;
 import com.kurekwioletta.githubclient.utils.AppConstants;
+import com.kurekwioletta.githubclient.utils.Validator;
 import com.kurekwioletta.githubclient.utils.ui.main.response.User;
 import com.kurekwioletta.githubclient.utils.utils.TestConstants;
 
@@ -26,7 +27,7 @@ import static org.mockito.Mockito.when;
 
 public class MainPresenterTest {
 
-    private static final int STATUS_CODE_UNKNOWN = 520;
+    private static final int RESPONSE_STATUS_CODE_UNKNOWN = 520;
 
     private MainPresenter<MainContract.View> mMainPresenter;
 
@@ -45,7 +46,8 @@ public class MainPresenterTest {
 
         mMainPresenter = new MainPresenter<>(
                 mMockedGithubApiManager,
-                mMockedCompositeDisposable);
+                mMockedCompositeDisposable,
+                new Validator());
 
         mMainPresenter.onAttach(mMockedMainView);
     }
@@ -53,7 +55,7 @@ public class MainPresenterTest {
     @Test
     public void when_userExist_showRepositoriesList() {
         Response<User> response = Response.success(
-                AppConstants.STATUS_CODE_SUCCESS,
+                AppConstants.RESPONSE_STATUS_CODE_SUCCESS,
                 new User());
 
         doReturn(Observable.just(response))
@@ -77,7 +79,7 @@ public class MainPresenterTest {
     @Test
     public void when_userNotFound_showMessage() {
         Response<User> response = Response.error(
-                AppConstants.STATUS_CODE_NOT_FOUND,
+                AppConstants.RESPONSE_STATUS_CODE_NOT_FOUND,
                 ResponseBody.create(
                         MediaType.parse("application/json"),""
                 ));
@@ -96,7 +98,7 @@ public class MainPresenterTest {
     @Test
     public void when_unknownError_showMessage() {
         Response<User> response = Response.error(
-                STATUS_CODE_UNKNOWN,
+                RESPONSE_STATUS_CODE_UNKNOWN,
                 ResponseBody.create(
                         MediaType.parse("application/json"),""
                 ));

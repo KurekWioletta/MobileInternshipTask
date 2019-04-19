@@ -8,8 +8,10 @@ import android.widget.TextView;
 
 import com.kurekwioletta.githubclient.R;
 import com.kurekwioletta.githubclient.data.model.Repository;
+import com.kurekwioletta.githubclient.di.activity.HasActivitySubcomponentBuilders;
+import com.kurekwioletta.githubclient.di.activity.components.RepositoryDetailsActivityComponent;
+import com.kurekwioletta.githubclient.di.activity.modules.RepositoryDetailsActivityModule;
 import com.kurekwioletta.githubclient.ui.base.BaseActivity;
-import com.kurekwioletta.githubclient.utils.AppConstants;
 
 import javax.inject.Inject;
 
@@ -55,7 +57,6 @@ public class RepositoryDetailsActivity extends BaseActivity implements Repositor
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repository_details);
 
-        getActivityComponent().inject(this);
         setUnBinder(ButterKnife.bind(this));
 
         mPresenter.onAttach(this);
@@ -63,20 +64,27 @@ public class RepositoryDetailsActivity extends BaseActivity implements Repositor
     }
 
     @Override
+    protected void injectMembers(HasActivitySubcomponentBuilders hasActivitySubcomponentBuilders) {
+        ((RepositoryDetailsActivityComponent.Builder) hasActivitySubcomponentBuilders.getActivityComponentBuilder(RepositoryDetailsActivity.class))
+                .activityModule(new RepositoryDetailsActivityModule(this))
+                .build()
+                .injectMembers(this);
+    }
+
+    @Override
     public void setUpRepositoryDetails(Repository repository) {
         tvName.setText(repository.getName());
-        if(repository.getDescription() == null) {
+        if (repository.getDescription() == null) {
             tvDescription.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             tvDescription.setText(repository.getDescription());
         }
         tvWatchers.setText(String.valueOf(repository.getWatchersCount()));
         tvStars.setText(String.valueOf(repository.getStargazersCount()));
         tvForks.setText(String.valueOf(repository.getForksCount()));
-        tvCreated.setText(repository.getCreatedAt().substring(0,10)); // yyyy-mm-dd
-        tvUpdated.setText(repository.getUpdatedAt().substring(0,10));
-        tvPushed.setText(repository.getPushedAt().substring(0,10));
+        tvCreated.setText(repository.getCreatedAt().substring(0, 10)); // yyyy-mm-dd
+        tvUpdated.setText(repository.getUpdatedAt().substring(0, 10));
+        tvPushed.setText(repository.getPushedAt().substring(0, 10));
         tvHyperlink.setText(repository.getHtmlUrl());
     }
 
@@ -88,7 +96,7 @@ public class RepositoryDetailsActivity extends BaseActivity implements Repositor
 
     public static Intent getStartIntent(Context context, Repository repository) {
         Intent intent = new Intent(context, RepositoryDetailsActivity.class);
-        intent.putExtra(EXTRA_REPOSITORY,repository);
+        intent.putExtra(EXTRA_REPOSITORY, repository);
         return intent;
     }
 }

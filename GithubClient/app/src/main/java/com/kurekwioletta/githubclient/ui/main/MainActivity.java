@@ -6,6 +6,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.kurekwioletta.githubclient.R;
+import com.kurekwioletta.githubclient.di.activity.HasActivitySubcomponentBuilders;
+import com.kurekwioletta.githubclient.di.activity.components.MainActivityComponent;
+import com.kurekwioletta.githubclient.di.activity.modules.MainActivityModule;
 import com.kurekwioletta.githubclient.ui.base.BaseActivity;
 import com.kurekwioletta.githubclient.ui.repositories_list.RepositoriesListActivity;
 
@@ -31,10 +34,17 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getActivityComponent().inject(this);
         setUnBinder(ButterKnife.bind(this));
 
         mPresenter.onAttach(this);
+    }
+
+    @Override
+    protected void injectMembers(HasActivitySubcomponentBuilders hasActivitySubcomponentBuilders) {
+        ((MainActivityComponent.Builder) hasActivitySubcomponentBuilders.getActivityComponentBuilder(MainActivity.class))
+                .activityModule(new MainActivityModule(this))
+                .build()
+                .injectMembers(this);
     }
 
     @Override

@@ -37,7 +37,8 @@ public class Repository implements Parcelable {
     @SerializedName("forks_count")
     private int forksCount;
 
-    public Repository() {}
+    public Repository() {
+    }
 
     public Repository(Parcel in) {
         id = in.readInt();

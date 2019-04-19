@@ -5,12 +5,15 @@ import io.reactivex.observers.DisposableObserver;
 public abstract class DisposableObserverWrapper<T> extends DisposableObserver<T> {
 
     @Override
-    public void onComplete(){}
+    public void onComplete() {
+    }
 
     @Override
-    public void onNext(T t){}
+    public void onNext(T t) {
+    }
 
     @Override
-    public void onError(Throwable e){}
+    public void onError(Throwable e) {
+    }
 
 }

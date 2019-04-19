@@ -15,12 +15,15 @@ import com.kurekwioletta.githubclient.ui.repositories_list.adapter.viewholder.Re
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class RepositoriesListAdapter extends RecyclerView.Adapter {
 
     private final List<Repository> mRepositoriesList = new ArrayList<>();
 
     private Context mContext;
 
+    @Inject
     public RepositoriesListAdapter(Context context) {
         mContext = context;
     }
@@ -30,7 +33,7 @@ public class RepositoriesListAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
         return new RepositoriesListViewHolder(view);
-}
+    }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {

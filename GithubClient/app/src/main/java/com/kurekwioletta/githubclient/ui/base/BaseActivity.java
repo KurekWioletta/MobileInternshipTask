@@ -5,30 +5,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.kurekwioletta.githubclient.GithubClientApp;
-import com.kurekwioletta.githubclient.di.components.ActivityComponent;
-import com.kurekwioletta.githubclient.di.components.DaggerActivityComponent;
-import com.kurekwioletta.githubclient.di.modules.activity.BaseActivityModule;
+import com.kurekwioletta.githubclient.di.activity.HasActivitySubcomponentBuilders;
 
 import butterknife.Unbinder;
 
-public class BaseActivity extends AppCompatActivity implements MvpView {
+public abstract class BaseActivity extends AppCompatActivity implements MvpView {
 
     private Unbinder mUnbinder;
-    private ActivityComponent mActivityComponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mActivityComponent = DaggerActivityComponent.builder()
-                .baseActivityModule(new BaseActivityModule(this))
-                .appComponent(((GithubClientApp) getApplication()).getComponent())
-                .build();
+        setUpActivityComponent();
     }
 
-    public ActivityComponent getActivityComponent() {
-        return mActivityComponent;
+    protected void setUpActivityComponent() {
+        injectMembers(GithubClientApp.get(this));
     }
+
+    protected abstract void injectMembers(HasActivitySubcomponentBuilders hasActivitySubcomponentBuilders);
 
     @Override
     protected void onDestroy() {

@@ -1,6 +1,8 @@
-package com.kurekwioletta.githubclient.di.modules.activity;
+package com.kurekwioletta.githubclient.di.activity.modules;
 
-import com.kurekwioletta.githubclient.di.PerActivity;
+
+import com.kurekwioletta.githubclient.di.ActivityScope;
+import com.kurekwioletta.githubclient.ui.repository_details.RepositoryDetailsActivity;
 import com.kurekwioletta.githubclient.ui.repository_details.RepositoryDetailsContract;
 import com.kurekwioletta.githubclient.ui.repository_details.RepositoryDetailsPresenter;
 
@@ -8,10 +10,13 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class RepositoryDetailsActivityModule {
+public class RepositoryDetailsActivityModule extends ActivityModule<RepositoryDetailsActivity> {
+    public RepositoryDetailsActivityModule(RepositoryDetailsActivity activity) {
+        super(activity);
+    }
 
     @Provides
-    @PerActivity
+    @ActivityScope
     RepositoryDetailsContract.Presenter<RepositoryDetailsContract.View> provideRepositoriesPresenter(
             RepositoryDetailsPresenter<RepositoryDetailsContract.View> presenter) {
         return presenter;

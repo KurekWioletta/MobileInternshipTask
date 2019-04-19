@@ -10,10 +10,12 @@ import android.view.View;
 
 import com.kurekwioletta.githubclient.R;
 import com.kurekwioletta.githubclient.data.model.Repository;
+import com.kurekwioletta.githubclient.di.activity.HasActivitySubcomponentBuilders;
+import com.kurekwioletta.githubclient.di.activity.components.RepositoriesListActivityComponent;
+import com.kurekwioletta.githubclient.di.activity.modules.RepositoriesListActivityModule;
 import com.kurekwioletta.githubclient.ui.base.BaseActivity;
 import com.kurekwioletta.githubclient.ui.repositories_list.adapter.RepositoriesListAdapter;
 import com.kurekwioletta.githubclient.ui.repository_details.RepositoryDetailsActivity;
-import com.kurekwioletta.githubclient.utils.AppConstants;
 
 import java.util.List;
 
@@ -46,12 +48,19 @@ public class RepositoriesListActivity extends BaseActivity implements Repositori
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repositories_list);
 
-        getActivityComponent().inject(this);
         setUnBinder(ButterKnife.bind(this));
 
         mPresenter.onAttach(this);
         setUpRepositoriesListRecyclerView();
         mPresenter.onViewInitialized(getIntent().getStringExtra(EXTRA_USERNAME));
+    }
+
+    @Override
+    protected void injectMembers(HasActivitySubcomponentBuilders hasActivitySubcomponentBuilders) {
+        ((RepositoriesListActivityComponent.Builder) hasActivitySubcomponentBuilders.getActivityComponentBuilder(RepositoriesListActivity.class))
+                .activityModule(new RepositoriesListActivityModule(this))
+                .build()
+                .injectMembers(this);
     }
 
     @Override
