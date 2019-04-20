@@ -20,6 +20,7 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -48,31 +49,35 @@ public class RepositoriesListPresenterTest {
     }
 
     @Test
-    public void when_repositoriesLoadedSuccessfully_updateRepositoriesList() {
+    public void when_repositoriesListWasLoadedSuccessfully_updateRepositoriesList() {
+
+        // arrange
         List<Repository> repositoryList = new ArrayList<>();
 
         doReturn(Observable.just(repositoryList))
                 .when(mMockedGithubApiManager)
                 .getUsersRepositoriesList(TestConstants.VALID_USERNAME);
 
+        // act
         mRepositoriesListPresenter.onViewInitialized(TestConstants.VALID_USERNAME);
 
+        // assert
         verify(mMockedRepositoriesListView).showLoading();
         verify(mMockedRepositoriesListView).hideLoading();
         verify(mMockedRepositoriesListView).updateRepositoriesListRecyclerView(repositoryList);
     }
 
-    /**
-     * Show message when api request code is other than 200
-     * or there was an internet connection error.
-     */
     @Test
-    public void when_failedToLoadRepositories_showMessage() {
+    public void when_networkErrorHasOccurred_showNetworkErrorMessage() {
+
+        // arrange
         when(mMockedGithubApiManager.getUsersRepositoriesList(TestConstants.VALID_USERNAME))
                 .thenReturn(Observable.error(new RuntimeException()));
 
+        // act
         mRepositoriesListPresenter.onViewInitialized(TestConstants.VALID_USERNAME);
 
+        // assert
         verify(mMockedRepositoriesListView).showLoading();
         verify(mMockedRepositoriesListView).hideLoading();
         verify(mMockedRepositoriesListView).showMessage(R.string.ERR_NETWORK);

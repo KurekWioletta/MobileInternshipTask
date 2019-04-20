@@ -41,11 +41,15 @@ public class RepositoryDetailsPresenterTest {
     }
 
     @Test
-    public void when_viewInitialized_setUpRepositoryDetails() {
+    public void when_viewWasInitialized_setUpRepositoryDetails() {
+
+        // arrange
         Repository mockedRepository = mock(Repository.class);
 
+        // act
         mRepositoryDetailsPresenter.onViewInitialized(mockedRepository);
 
+        // assert
         verify(mMockedRepositoryDetailsView).setUpRepositoryDetails(mockedRepository);
     }
 

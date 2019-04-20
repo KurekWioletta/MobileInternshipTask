@@ -7,44 +7,47 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 public class ValidatorTest {
 
-    private Validator mMockedValidator;
+    private Validator mValidator;
 
     @Before
     public void setUp() {
-        mMockedValidator = new Validator();
+        mValidator = new Validator();
     }
 
     @Test
     public void validUsername() {
-        Assert.assertTrue(mMockedValidator.isUsernameValid("a"));
-        Assert.assertTrue(mMockedValidator.isUsernameValid("abc"));
-        Assert.assertTrue(mMockedValidator.isUsernameValid("ABC"));
-        Assert.assertTrue(mMockedValidator.isUsernameValid("Abc"));
-        Assert.assertTrue(mMockedValidator.isUsernameValid("a-b"));
-        Assert.assertTrue(mMockedValidator.isUsernameValid("a-b-c"));
-        Assert.assertTrue(mMockedValidator.isUsernameValid("0"));
-        Assert.assertTrue(mMockedValidator.isUsernameValid("10"));
-        Assert.assertTrue(mMockedValidator.isUsernameValid("1-2"));
-        Assert.assertTrue(mMockedValidator.isUsernameValid("abc123"));
-        Assert.assertTrue(mMockedValidator.isUsernameValid("abc-123"));
-        Assert.assertTrue(mMockedValidator.isUsernameValid(StringUtils.repeat("a", 39)));
+        assertTrue(mValidator.isUsernameValid("a"));
+        assertTrue(mValidator.isUsernameValid("abc"));
+        assertTrue(mValidator.isUsernameValid("ABC"));
+        assertTrue(mValidator.isUsernameValid("Abc"));
+        assertTrue(mValidator.isUsernameValid("a-b"));
+        assertTrue(mValidator.isUsernameValid("a-b-c"));
+        assertTrue(mValidator.isUsernameValid("0"));
+        assertTrue(mValidator.isUsernameValid("10"));
+        assertTrue(mValidator.isUsernameValid("1-2"));
+        assertTrue(mValidator.isUsernameValid("abc123"));
+        assertTrue(mValidator.isUsernameValid("abc-123"));
+        assertTrue(mValidator.isUsernameValid(StringUtils.repeat("a", 39)));
     }
 
     @Test
     public void invalidUsername() {
-        Assert.assertFalse(mMockedValidator.isUsernameValid(""));
-        Assert.assertFalse(mMockedValidator.isUsernameValid(" "));
-        Assert.assertFalse(mMockedValidator.isUsernameValid("a b"));
-        Assert.assertFalse(mMockedValidator.isUsernameValid("a "));
-        Assert.assertFalse(mMockedValidator.isUsernameValid(" b"));
-        Assert.assertFalse(mMockedValidator.isUsernameValid("a-"));
-        Assert.assertFalse(mMockedValidator.isUsernameValid("-b"));
-        Assert.assertFalse(mMockedValidator.isUsernameValid("a--b"));
-        Assert.assertFalse(mMockedValidator.isUsernameValid("a_b"));
-        Assert.assertFalse(mMockedValidator.isUsernameValid("a\nb"));
-        Assert.assertFalse(mMockedValidator.isUsernameValid("%"));
-        Assert.assertFalse(mMockedValidator.isUsernameValid(StringUtils.repeat("a", 40)));
+        assertFalse(mValidator.isUsernameValid(""));
+        assertFalse(mValidator.isUsernameValid(" "));
+        assertFalse(mValidator.isUsernameValid("a b"));
+        assertFalse(mValidator.isUsernameValid("a "));
+        assertFalse(mValidator.isUsernameValid(" b"));
+        assertFalse(mValidator.isUsernameValid("a-"));
+        assertFalse(mValidator.isUsernameValid("-b"));
+        assertFalse(mValidator.isUsernameValid("a--b"));
+        assertFalse(mValidator.isUsernameValid("a_b"));
+        assertFalse(mValidator.isUsernameValid("a\nb"));
+        assertFalse(mValidator.isUsernameValid("%"));
+        assertFalse(mValidator.isUsernameValid(StringUtils.repeat("a", 40)));
     }
 }

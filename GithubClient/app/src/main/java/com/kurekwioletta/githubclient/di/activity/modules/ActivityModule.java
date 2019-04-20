@@ -10,17 +10,17 @@ import dagger.Provides;
 import io.reactivex.disposables.CompositeDisposable;
 
 @Module
-public abstract class ActivityModule<V extends AppCompatActivity> {
+public abstract class ActivityModule<A extends AppCompatActivity> {
 
-    private final V mActivity;
+    private final A mActivity;
 
-    ActivityModule(V activity) {
+    ActivityModule(A activity) {
         mActivity = activity;
     }
 
     @Provides
     @ActivityScope
-    V provideActivity() {
+    A provideActivity() {
         return mActivity;
     }
 
