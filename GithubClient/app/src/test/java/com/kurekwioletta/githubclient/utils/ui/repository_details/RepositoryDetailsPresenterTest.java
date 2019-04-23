@@ -7,9 +7,11 @@ import com.kurekwioletta.githubclient.ui.repository_details.RepositoryDetailsPre
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -20,19 +22,20 @@ public class RepositoryDetailsPresenterTest {
 
     private RepositoryDetailsPresenter<RepositoryDetailsContract.View> mRepositoryDetailsPresenter;
 
-    @Mock
-    RepositoryDetailsContract.View mMockedRepositoryDetailsView;
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Mock
-    CompositeDisposable mMockedCompositeDisposable;
+    private RepositoryDetailsContract.View mMockedRepositoryDetailsView;
 
     @Mock
-    GithubApiManager mMockedGithubApiManager;
+    private GithubApiManager mMockedGithubApiManager;
+
+    @Mock
+    private CompositeDisposable mMockedCompositeDisposable;
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
-
         mRepositoryDetailsPresenter = new RepositoryDetailsPresenter<>(
                 mMockedGithubApiManager,
                 mMockedCompositeDisposable);

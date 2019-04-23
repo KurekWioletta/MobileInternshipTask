@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#00574B</color>
+    <color name="colorPrimary">#27916F</color>
+    <color name="colorPrimaryDark">#15664C</color>
+    <color name="colorAccent">#15664C</color>
 
-    <color name="colorIcon">#3D3D3D</color>
+    <!-- grayscale -->
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorDarkGray">#474747</color>
 
-    <color name="colorTransparentBackground">#AB4D4D4D</color>
+    <!-- custom -->
+    <color name="colorTransparentBackground">#AB6B6B6B</color>
+    <color name="colorGdMainButtonStart">#3cba92</color>
+    <color name="colorGdMainButtonEnd">#0ba360</color>
 </resources>

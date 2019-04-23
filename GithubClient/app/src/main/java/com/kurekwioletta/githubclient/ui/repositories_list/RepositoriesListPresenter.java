@@ -3,6 +3,7 @@ package com.kurekwioletta.githubclient.ui.repositories_list;
 import com.kurekwioletta.githubclient.R;
 import com.kurekwioletta.githubclient.data.GithubApiManager;
 import com.kurekwioletta.githubclient.data.model.Repository;
+import com.kurekwioletta.githubclient.di.ActivityScope;
 import com.kurekwioletta.githubclient.ui.base.BasePresenter;
 import com.kurekwioletta.githubclient.utils.rx.DisposableObserverWrapper;
 
@@ -12,6 +13,7 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
+@ActivityScope
 public class RepositoriesListPresenter<V extends RepositoriesListContract.View> extends BasePresenter<V> implements RepositoriesListContract.Presenter<V> {
 
     @Inject

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.kurekwioletta.githubclient.R;
 import com.kurekwioletta.githubclient.data.model.Repository;
+import com.kurekwioletta.githubclient.di.ActivityScope;
 import com.kurekwioletta.githubclient.ui.repositories_list.RepositoriesListActivity;
 import com.kurekwioletta.githubclient.ui.repositories_list.adapter.viewholder.RepositoriesListViewHolder;
 
@@ -17,6 +18,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+@ActivityScope
 public class RepositoriesListAdapter extends RecyclerView.Adapter {
 
     private final List<Repository> mRepositoriesList = new ArrayList<>();

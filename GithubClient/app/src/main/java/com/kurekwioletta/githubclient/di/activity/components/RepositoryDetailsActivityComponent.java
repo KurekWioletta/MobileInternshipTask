@@ -16,4 +16,5 @@ public interface RepositoryDetailsActivityComponent extends ActivityComponent<Re
     @Subcomponent.Builder
     interface Builder extends ActivityComponentBuilder<RepositoryDetailsActivityModule, RepositoryDetailsActivityComponent> {
     }
+
 }

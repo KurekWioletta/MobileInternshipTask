@@ -10,9 +10,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_small"
+        githubClientApp:layout_constraintBottom_toBottomOf="parent"
         githubClientApp:layout_constraintLeft_toLeftOf="parent"
         githubClientApp:layout_constraintRight_toRightOf="parent"
-        githubClientApp:layout_constraintTop_toTopOf="parent"
-        githubClientApp:layout_constraintBottom_toBottomOf="parent"/>
+        githubClientApp:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

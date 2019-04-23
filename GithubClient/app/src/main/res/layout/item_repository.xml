@@ -25,8 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_normal"
         android:drawableTop="@drawable/ic_repository_star"
-        android:gravity="center_horizontal"
         android:drawablePadding="@dimen/margin_smallest"
+        android:gravity="center_horizontal"
         githubClientApp:layout_constraintBottom_toBottomOf="parent"
         githubClientApp:layout_constraintRight_toRightOf="parent"
         githubClientApp:layout_constraintTop_toTopOf="parent" />

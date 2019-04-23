@@ -1,8 +1,9 @@
 package com.kurekwioletta.githubclient.ui.base;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import com.kurekwioletta.githubclient.GithubClientApp;
 import com.kurekwioletta.githubclient.di.activity.HasActivitySubcomponentBuilders;
@@ -20,11 +21,16 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView 
         setUpActivityComponent();
     }
 
-    protected void setUpActivityComponent() {
-        injectMembers(GithubClientApp.get(this));
+    @Override
+    public void showMessage(int resId) {
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setMessage(getResources().getString(resId));
+        alertDialog.setButton(
+                DialogInterface.BUTTON_NEUTRAL,
+                "OK",
+                (dialog, id) -> dialog.dismiss());
+        alertDialog.show();
     }
-
-    protected abstract void injectMembers(HasActivitySubcomponentBuilders hasActivitySubcomponentBuilders);
 
     @Override
     protected void onDestroy() {
@@ -34,12 +40,13 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView 
         super.onDestroy();
     }
 
-    @Override
-    public void showMessage(int resId) {
-        Toast.makeText(this, getResources().getString(resId), Toast.LENGTH_SHORT).show();
+    protected void setUpActivityComponent() {
+        injectMembers(GithubClientApp.get(this));
     }
 
-    public void setUnBinder(Unbinder unBinder) {
+    protected abstract void injectMembers(HasActivitySubcomponentBuilders hasActivitySubcomponentBuilders);
+
+    protected void setUnBinder(Unbinder unBinder) {
         mUnbinder = unBinder;
     }
 }

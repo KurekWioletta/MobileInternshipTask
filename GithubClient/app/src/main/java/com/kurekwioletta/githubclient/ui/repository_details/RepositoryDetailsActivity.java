@@ -23,7 +23,7 @@ public class RepositoryDetailsActivity extends BaseActivity implements Repositor
     private static final String EXTRA_REPOSITORY = "com.kurekwioletta.githubclient.EXTRA_REPOSITORY";
 
     @Inject
-    RepositoryDetailsPresenter<RepositoryDetailsContract.View> mPresenter;
+    RepositoryDetailsPresenter<RepositoryDetailsContract.View> repositoryDetailsPresenter;
 
     @BindView(R.id.tv_repository_details_name)
     TextView tvName;
@@ -59,13 +59,14 @@ public class RepositoryDetailsActivity extends BaseActivity implements Repositor
 
         setUnBinder(ButterKnife.bind(this));
 
-        mPresenter.onAttach(this);
-        mPresenter.onViewInitialized(getIntent().getParcelableExtra(EXTRA_REPOSITORY));
+        repositoryDetailsPresenter.onAttach(this);
+        repositoryDetailsPresenter.onViewInitialized(getIntent().getParcelableExtra(EXTRA_REPOSITORY));
     }
 
     @Override
     protected void injectMembers(HasActivitySubcomponentBuilders hasActivitySubcomponentBuilders) {
-        ((RepositoryDetailsActivityComponent.Builder) hasActivitySubcomponentBuilders.getActivityComponentBuilder(RepositoryDetailsActivity.class))
+        ((RepositoryDetailsActivityComponent.Builder) hasActivitySubcomponentBuilders
+                .getActivityComponentBuilder(RepositoryDetailsActivity.class))
                 .activityModule(new RepositoryDetailsActivityModule(this))
                 .build()
                 .injectMembers(this);
@@ -90,7 +91,7 @@ public class RepositoryDetailsActivity extends BaseActivity implements Repositor
 
     @Override
     protected void onDestroy() {
-        mPresenter.onDetach();
+        repositoryDetailsPresenter.onDetach();
         super.onDestroy();
     }
 

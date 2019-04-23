@@ -1,9 +1,19 @@
 package com.kurekwioletta.githubclient.utils;
 
+import com.kurekwioletta.githubclient.di.ActivityScope;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.inject.Inject;
+
+@ActivityScope
 public class Validator {
+
+    @Inject
+    public Validator() {
+
+    }
 
     /**
      * Validate username with regular expression.

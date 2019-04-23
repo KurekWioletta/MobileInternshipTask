@@ -2,8 +2,6 @@ package com.kurekwioletta.githubclient.ui.base;
 
 import com.kurekwioletta.githubclient.data.GithubApiManager;
 
-import javax.inject.Inject;
-
 import io.reactivex.disposables.CompositeDisposable;
 
 public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
@@ -13,7 +11,6 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
 
     private V mMvpView;
 
-    @Inject
     public BasePresenter(GithubApiManager githubApiManager, CompositeDisposable compositeDisposable) {
         mGithubApiManager = githubApiManager;
         mCompositeDisposable = compositeDisposable;
@@ -30,7 +27,7 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
         mMvpView = null;
     }
 
-    public V getMvpView() {
+    protected V getMvpView() {
         return mMvpView;
     }
 

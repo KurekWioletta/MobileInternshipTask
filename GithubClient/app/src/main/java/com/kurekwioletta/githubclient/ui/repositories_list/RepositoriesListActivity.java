@@ -29,13 +29,13 @@ public class RepositoriesListActivity extends BaseActivity implements Repositori
     private static final String EXTRA_USERNAME = "com.kurekwioletta.githubclient.EXTRA_USERNAME";
 
     @Inject
-    RepositoriesListPresenter<RepositoriesListContract.View> mPresenter;
+    RepositoriesListPresenter<RepositoriesListContract.View> repositoriesListPresenter;
 
     @Inject
-    RepositoriesListAdapter mAdapter;
+    RepositoriesListAdapter repositoriesListAdapter;
 
     @Inject
-    LinearLayoutManager mLinearLayoutManager;
+    LinearLayoutManager linearLayoutManager;
 
     @BindView(R.id.rv_repositories_list)
     RecyclerView rvRepositoriesList;
@@ -50,14 +50,15 @@ public class RepositoriesListActivity extends BaseActivity implements Repositori
 
         setUnBinder(ButterKnife.bind(this));
 
-        mPresenter.onAttach(this);
+        repositoriesListPresenter.onAttach(this);
         setUpRepositoriesListRecyclerView();
-        mPresenter.onViewInitialized(getIntent().getStringExtra(EXTRA_USERNAME));
+        repositoriesListPresenter.onViewInitialized(getIntent().getStringExtra(EXTRA_USERNAME));
     }
 
     @Override
     protected void injectMembers(HasActivitySubcomponentBuilders hasActivitySubcomponentBuilders) {
-        ((RepositoriesListActivityComponent.Builder) hasActivitySubcomponentBuilders.getActivityComponentBuilder(RepositoriesListActivity.class))
+        ((RepositoriesListActivityComponent.Builder) hasActivitySubcomponentBuilders
+                .getActivityComponentBuilder(RepositoriesListActivity.class))
                 .activityModule(new RepositoriesListActivityModule(this))
                 .build()
                 .injectMembers(this);
@@ -65,7 +66,7 @@ public class RepositoriesListActivity extends BaseActivity implements Repositori
 
     @Override
     public void updateRepositoriesListRecyclerView(List<Repository> repositoriesList) {
-        mAdapter.updateRepositoriesList(repositoriesList);
+        repositoriesListAdapter.updateRepositoriesList(repositoriesList);
     }
 
     @Override
@@ -80,7 +81,7 @@ public class RepositoriesListActivity extends BaseActivity implements Repositori
 
     @Override
     protected void onDestroy() {
-        mPresenter.onDetach();
+        repositoriesListPresenter.onDetach();
         super.onDestroy();
     }
 
@@ -95,7 +96,7 @@ public class RepositoriesListActivity extends BaseActivity implements Repositori
     }
 
     private void setUpRepositoriesListRecyclerView() {
-        rvRepositoriesList.setLayoutManager(mLinearLayoutManager);
-        rvRepositoriesList.setAdapter(mAdapter);
+        rvRepositoriesList.setLayoutManager(linearLayoutManager);
+        rvRepositoriesList.setAdapter(repositoriesListAdapter);
     }
 }

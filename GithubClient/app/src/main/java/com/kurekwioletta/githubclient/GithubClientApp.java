@@ -13,28 +13,26 @@ import java.util.Map;
 import java.util.Objects;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 
 public class GithubClientApp extends Application implements HasActivitySubcomponentBuilders {
 
     @Inject
-    Map<Class<? extends Activity>, Provider<ActivityComponentBuilder>> mActivityComponentBuilders;
+    protected Map<Class<? extends Activity>, ActivityComponentBuilder> mActivityComponentBuilders;
 
     @Override
     public void onCreate() {
         super.onCreate();
-
         AppComponent appComponent = DaggerAppComponent.create();
-
         appComponent.inject(this);
+    }
+
+    @Override
+    public ActivityComponentBuilder getActivityComponentBuilder(Class<? extends Activity> activityClass) {
+        return Objects.requireNonNull(mActivityComponentBuilders.get(activityClass));
     }
 
     public static HasActivitySubcomponentBuilders get(Context context) {
         return ((HasActivitySubcomponentBuilders) context.getApplicationContext());
     }
 
-    @Override
-    public ActivityComponentBuilder getActivityComponentBuilder(Class<? extends Activity> activityClass) {
-        return Objects.requireNonNull(mActivityComponentBuilders.get(activityClass)).get();
-    }
 }

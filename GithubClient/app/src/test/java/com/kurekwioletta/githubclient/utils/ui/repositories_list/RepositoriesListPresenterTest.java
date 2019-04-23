@@ -9,9 +9,11 @@ import com.kurekwioletta.githubclient.utils.utils.TestConstants;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +21,6 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -28,19 +28,20 @@ public class RepositoriesListPresenterTest {
 
     private RepositoriesListPresenter<RepositoriesListContract.View> mRepositoriesListPresenter;
 
-    @Mock
-    RepositoriesListContract.View mMockedRepositoriesListView;
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Mock
-    CompositeDisposable mMockedCompositeDisposable;
+    private RepositoriesListContract.View mMockedRepositoriesListView;
 
     @Mock
-    GithubApiManager mMockedGithubApiManager;
+    private GithubApiManager mMockedGithubApiManager;
+
+    @Mock
+    private CompositeDisposable mMockedCompositeDisposable;
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
-
         mRepositoriesListPresenter = new RepositoriesListPresenter<>(
                 mMockedGithubApiManager,
                 mMockedCompositeDisposable);
@@ -51,12 +52,11 @@ public class RepositoriesListPresenterTest {
     @Test
     public void when_repositoriesListWasLoadedSuccessfully_updateRepositoriesList() {
 
-        // arrange
-        List<Repository> repositoryList = new ArrayList<>();
+        // arrange - successfully loaded repositories
+        List<Repository> repositoriesList = new ArrayList<>();
 
-        doReturn(Observable.just(repositoryList))
-                .when(mMockedGithubApiManager)
-                .getUsersRepositoriesList(TestConstants.VALID_USERNAME);
+        when(mMockedGithubApiManager.getUsersRepositoriesList(TestConstants.VALID_USERNAME))
+                .thenReturn(Observable.just(repositoriesList));
 
         // act
         mRepositoriesListPresenter.onViewInitialized(TestConstants.VALID_USERNAME);
@@ -64,13 +64,13 @@ public class RepositoriesListPresenterTest {
         // assert
         verify(mMockedRepositoriesListView).showLoading();
         verify(mMockedRepositoriesListView).hideLoading();
-        verify(mMockedRepositoriesListView).updateRepositoriesListRecyclerView(repositoryList);
+        verify(mMockedRepositoriesListView).updateRepositoriesListRecyclerView(repositoriesList);
     }
 
     @Test
     public void when_networkErrorHasOccurred_showNetworkErrorMessage() {
 
-        // arrange
+        // arrange - network error
         when(mMockedGithubApiManager.getUsersRepositoriesList(TestConstants.VALID_USERNAME))
                 .thenReturn(Observable.error(new RuntimeException()));
 

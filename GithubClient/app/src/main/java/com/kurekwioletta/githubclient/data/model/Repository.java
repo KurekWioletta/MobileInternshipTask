@@ -37,9 +37,6 @@ public class Repository implements Parcelable {
     @SerializedName("forks_count")
     private int forksCount;
 
-    public Repository() {
-    }
-
     public Repository(Parcel in) {
         id = in.readInt();
         name = in.readString();
@@ -118,42 +115,6 @@ public class Repository implements Parcelable {
 
     public int getForksCount() {
         return forksCount;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setHtmlUrl(String htmlUrl) {
-        this.htmlUrl = htmlUrl;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public void setPushedAt(String pushedAt) {
-        this.pushedAt = pushedAt;
-    }
-
-    public void setStargazersCount(int stargazersCount) {
-        this.stargazersCount = stargazersCount;
-    }
-
-    public void setWatchersCount(int watchersCount) {
-        this.watchersCount = watchersCount;
-    }
-
-    public void setForksCount(int forksCount) {
-        this.forksCount = forksCount;
     }
 
 }

@@ -3,7 +3,6 @@ package com.kurekwioletta.githubclient.utils.utils;
 import com.kurekwioletta.githubclient.utils.Validator;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

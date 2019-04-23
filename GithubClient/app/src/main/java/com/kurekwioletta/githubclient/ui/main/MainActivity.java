@@ -21,7 +21,7 @@ import butterknife.OnClick;
 public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Inject
-    MainPresenter<MainContract.View> mPresenter;
+    MainPresenter<MainContract.View> mainPresenter;
 
     @BindView(R.id.et_main_username)
     EditText etUsername;
@@ -36,12 +36,13 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
         setUnBinder(ButterKnife.bind(this));
 
-        mPresenter.onAttach(this);
+        mainPresenter.onAttach(this);
     }
 
     @Override
     protected void injectMembers(HasActivitySubcomponentBuilders hasActivitySubcomponentBuilders) {
-        ((MainActivityComponent.Builder) hasActivitySubcomponentBuilders.getActivityComponentBuilder(MainActivity.class))
+        ((MainActivityComponent.Builder) hasActivitySubcomponentBuilders
+                .getActivityComponentBuilder(MainActivity.class))
                 .activityModule(new MainActivityModule(this))
                 .build()
                 .injectMembers(this);
@@ -64,12 +65,12 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     protected void onDestroy() {
-        mPresenter.onDetach();
+        mainPresenter.onDetach();
         super.onDestroy();
     }
 
     @OnClick(R.id.btn_main_load_repositories)
     public void onLoadRepositoriesClick(View v) {
-        mPresenter.onLoadRepositoriesClick(etUsername.getText().toString());
+        mainPresenter.onLoadRepositoriesClick(etUsername.getText().toString());
     }
 }

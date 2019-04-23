@@ -14,4 +14,9 @@
         <item name="android:drawablePadding">@dimen/margin_smallest</item>
         <item name="android:gravity">center_vertical</item>
     </style>
+
+    <style name="MainButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:background">@drawable/sl_main_button</item>
+    </style>
 </resources>

@@ -5,45 +5,32 @@ import com.kurekwioletta.githubclient.utils.rx.SchedulerProvider;
 
 import java.util.List;
 
-import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import io.reactivex.Observable;
-import okhttp3.OkHttpClient;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
+@Singleton
 public class AppGithubApiManager implements GithubApiManager {
 
-    private static final String API_ENDPOINT = "https://api.github.com/";
-
-    private final GithubApiManager mGithubApiHelper;
+    private final GithubApiManager mGithubApiManager;
     private final SchedulerProvider mSchedulerProvider;
 
-    @Inject
-    public AppGithubApiManager(OkHttpClient okHttpClient, SchedulerProvider schedulerProvider) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .client(okHttpClient)
-                .baseUrl(API_ENDPOINT)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-
-        mGithubApiHelper = retrofit.create(GithubApiManager.class);
+    public AppGithubApiManager(GithubApiManager githubApiManager, SchedulerProvider schedulerProvider) {
+        mGithubApiManager = githubApiManager;
         mSchedulerProvider = schedulerProvider;
     }
 
     @Override
     public Observable<Response<Void>> getUserResponse(String username) {
-        return mGithubApiHelper.getUserResponse(username)
+        return mGithubApiManager.getUserResponse(username)
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui());
     }
 
     @Override
     public Observable<List<Repository>> getUsersRepositoriesList(String username) {
-        return mGithubApiHelper.getUsersRepositoriesList(username)
+        return mGithubApiManager.getUsersRepositoriesList(username)
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui());
     }

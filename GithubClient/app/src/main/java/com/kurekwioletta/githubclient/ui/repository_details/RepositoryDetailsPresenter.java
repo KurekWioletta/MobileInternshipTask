@@ -2,12 +2,14 @@ package com.kurekwioletta.githubclient.ui.repository_details;
 
 import com.kurekwioletta.githubclient.data.GithubApiManager;
 import com.kurekwioletta.githubclient.data.model.Repository;
+import com.kurekwioletta.githubclient.di.ActivityScope;
 import com.kurekwioletta.githubclient.ui.base.BasePresenter;
 
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
+@ActivityScope
 public class RepositoryDetailsPresenter<V extends RepositoryDetailsContract.View> extends BasePresenter<V> implements RepositoryDetailsContract.Presenter<V> {
 
     @Inject
