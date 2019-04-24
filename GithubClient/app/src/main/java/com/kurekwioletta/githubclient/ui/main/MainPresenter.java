@@ -4,7 +4,6 @@ import com.kurekwioletta.githubclient.R;
 import com.kurekwioletta.githubclient.data.GithubApiManager;
 import com.kurekwioletta.githubclient.di.ActivityScope;
 import com.kurekwioletta.githubclient.ui.base.BasePresenter;
-import com.kurekwioletta.githubclient.utils.AppConstants;
 import com.kurekwioletta.githubclient.utils.Validator;
 import com.kurekwioletta.githubclient.utils.rx.DisposableObserverWrapper;
 
@@ -15,6 +14,9 @@ import retrofit2.Response;
 
 @ActivityScope
 public class MainPresenter<V extends MainContract.View> extends BasePresenter<V> implements MainContract.Presenter<V> {
+
+    private static final int RESPONSE_STATUS_CODE_SUCCESS = 200;
+    private static final int RESPONSE_STATUS_CODE_NOT_FOUND = 404;
 
     private Validator mValidator;
 
@@ -37,10 +39,10 @@ public class MainPresenter<V extends MainContract.View> extends BasePresenter<V>
                                 public void onNext(Response<Void> response) {
                                     getMvpView().hideLoading();
                                     switch (response.code()) {
-                                        case AppConstants.RESPONSE_STATUS_CODE_SUCCESS:
+                                        case RESPONSE_STATUS_CODE_SUCCESS:
                                             getMvpView().openRepositoriesListActivity(username);
                                             break;
-                                        case AppConstants.RESPONSE_STATUS_CODE_NOT_FOUND:
+                                        case RESPONSE_STATUS_CODE_NOT_FOUND:
                                             getMvpView().showMessage(R.string.ERR_NOT_FOUND);
                                             break;
                                         default:
